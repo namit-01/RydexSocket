@@ -97,7 +97,21 @@ io.on("connection", (socket) => {
       console.error("Update Location Error:", err);
     }
   });
+ socket.on("driver-location-update", (data) => {
 
+    const { bookingId, latitude, longitude } = data;
+
+
+    // same ride wale user ko bhejna
+    socket.to(bookingId).emit(
+      "driver-location-update",
+      {
+        latitude,
+        longitude
+      }
+    );
+
+  });
   socket.on("disconnect", async () => {
     try {
       if (!socket.userId) return;
