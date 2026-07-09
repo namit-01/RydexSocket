@@ -23,10 +23,11 @@ const app = express();
 app.use(express.json());
 const server = http.createServer(app);
 console.log("NEXT_BASE_URL =", process.env.NEXT_BASE_URL);
+const allowedOrigins = [process.env.NEXT_BASE_URL, "http://localhost:3000"];
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.NEXT_BASE_URL,
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
