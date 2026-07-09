@@ -53,17 +53,23 @@ io.on("connection", (socket) => {
 
   socket.on("identity", async (data) => {
     try {
-      socket.userId = data.userId;
+      console.log("Identity received:", data);
+  console.log("Socket ID:", socket.id);
 
-      const user = await User.findById(data.userId);
+  const user = await User.findById(data.userId);
+  console.log("User:", user);
 
-      if (!user) {
-        console.log("User not found");
-        return;
-      }
+  if (!user) {
+    console.log("User not found");
+    return;
+  }
 
-      user.socketId = socket.id;
-      user.isOnline = true;
+  user.socketId = socket.id;
+  user.isOnline = true;
+
+  await user.save();
+
+  console.log("Saved:", user.socketId);
 
       await user.save();
     } catch (err) {
