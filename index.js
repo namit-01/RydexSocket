@@ -22,6 +22,7 @@ const connectDb = async () => {
 const app = express();
 app.use(express.json());
 const server = http.createServer(app);
+console.log("NEXT_BASE_URL =", process.env.NEXT_BASE_URL);
 
 const io = new Server(server, {
   cors: {
