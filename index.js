@@ -43,6 +43,10 @@ app.post("/emit", async (req, res) => {
     return res.json({ succes: false });
   }
 });
+app.get("/test", (req, res) => {
+  console.log("HTTP request received");
+  res.send("OK");
+});
 
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
